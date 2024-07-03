@@ -2,7 +2,8 @@ import headphonesLogo from "./assets/headphones.png";
 import "./App.css";
 import { Button, Input } from "./components";
 import { useCallback } from "react";
-import { getPlaylistId } from "./helpers";
+import { axiosHelper, getPlaylistId } from "./helpers";
+import { API_URL } from "./helpers/env";
 
 function App() {
     // TODO: implement the converted playlist display
@@ -14,9 +15,24 @@ function App() {
             const playlistUrl = url.value;
             const playlistId = getPlaylistId(playlistUrl);
 
-            console.log(playlistId);
+            console.log("playlistId: ", playlistId);
 
-            // here we will post the playlistId to the server
+            if (!playlistId) {
+                alert("Invalid playlist URL");
+                return;
+            }
+
+            console.log("API_URL: ", API_URL);
+
+            const response = await axiosHelper({
+                url: "/convertplaylist",
+                method: "POST",
+                body: {
+                    playslist: playlistId,
+                },
+            });
+
+            console.log("response: ", response);
         },
         []
     );

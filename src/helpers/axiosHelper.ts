@@ -7,7 +7,7 @@ const client: AxiosInstance = axios.create({
 });
 
 type AxiosHelperProps = {
-    url: `https://${string}` | `http://${string}`;
+    url: `/${string}`;
     body?: Record<string, unknown>;
     method?: "POST" | "PUT" | "DELETE" | "PATCH" | "GET";
 };
